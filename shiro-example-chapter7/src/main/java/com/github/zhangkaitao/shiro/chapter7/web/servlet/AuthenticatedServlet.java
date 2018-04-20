@@ -21,12 +21,14 @@ public class AuthenticatedServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Subject subject = SecurityUtils.getSubject();
+        
+        req.setAttribute("subject", subject);
+        
         if(subject.isAuthenticated()) {
             req.getRequestDispatcher("/WEB-INF/jsp/authenticated.jsp").forward(req, resp);
         } else {
             req.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(req, resp);
         }
     }
-
 
 }

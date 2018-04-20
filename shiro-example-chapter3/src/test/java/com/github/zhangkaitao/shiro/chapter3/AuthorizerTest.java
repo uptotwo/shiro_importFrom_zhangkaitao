@@ -29,7 +29,7 @@ public class AuthorizerTest extends BaseTest {
         Assert.assertTrue(subject().isPermitted("menu:view"));//通过MyRolePermissionResolver解析得到的权限
     }
 
-    @Test
+//    @Test
     public void testIsPermitted2() {
         login("classpath:shiro-jdbc-authorizer.ini", "zhang", "123");
         //判断拥有权限：user:create
