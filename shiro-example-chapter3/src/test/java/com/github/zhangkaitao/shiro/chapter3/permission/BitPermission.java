@@ -85,4 +85,5 @@ public class BitPermission implements Permission {
                 ", instanceId='" + instanceId + '\'' +
                 '}';
     }
+    
 }

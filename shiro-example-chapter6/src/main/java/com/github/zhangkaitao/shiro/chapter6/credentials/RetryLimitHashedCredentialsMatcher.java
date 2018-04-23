@@ -36,9 +36,9 @@ public class RetryLimitHashedCredentialsMatcher extends HashedCredentialsMatcher
         AtomicInteger retryCount = (AtomicInteger)element.getObjectValue();
         if(retryCount.incrementAndGet() > 5) {
             //if retry count > 5 throw
-            throw new ExcessiveAttemptsException();
+            throw new ExcessiveAttemptsException("too many  attempts,please try it later");
         }
-
+        
         boolean matches = super.doCredentialsMatch(token, info);
         if(matches) {
             //clear retry count

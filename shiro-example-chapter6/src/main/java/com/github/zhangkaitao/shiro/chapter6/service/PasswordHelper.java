@@ -23,10 +23,11 @@ public class PasswordHelper {
         user.setSalt(randomNumberGenerator.nextBytes().toHex());
 
         String newPassword = new SimpleHash(
-                algorithmName,
-                user.getPassword(),
-                ByteSource.Util.bytes(user.getCredentialsSalt()),
-                hashIterations).toHex();
+                algorithmName,//加密方法
+                user.getPassword(),//加密内容
+                ByteSource.Util.bytes(user.getCredentialsSalt()),//私盐
+                hashIterations//加密次数
+                ).toHex();//转换为16进制
 
         user.setPassword(newPassword);
     }

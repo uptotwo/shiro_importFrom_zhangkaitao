@@ -22,22 +22,22 @@ public class UserRealmTest extends BaseTest {
         Assert.assertTrue(subject().isAuthenticated());
     }
 
-    @Test(expected = UnknownAccountException.class)
+//    @Test(expected = UnknownAccountException.class)
     public void testLoginFailWithUnknownUsername() {
         login("classpath:shiro.ini", u1.getUsername() + "1", password);
     }
 
-    @Test(expected = IncorrectCredentialsException.class)
+//    @Test(expected = IncorrectCredentialsException.class)
     public void testLoginFailWithErrorPassowrd() {
         login("classpath:shiro.ini", u1.getUsername(), password + "1");
     }
 
-    @Test(expected = LockedAccountException.class)
+//    @Test(expected = LockedAccountException.class)
     public void testLoginFailWithLocked() {
         login("classpath:shiro.ini", u4.getUsername(), password + "1");
     }
 
-    @Test(expected = ExcessiveAttemptsException.class)
+//    @Test(expected = ExcessiveAttemptsException.class)
     public void testLoginFailWithLimitRetryCount() {
         for(int i = 1; i <= 5; i++) {
             try {
@@ -50,25 +50,25 @@ public class UserRealmTest extends BaseTest {
     }
 
 
-    @Test
+//    @Test
     public void testHasRole() {
         login("classpath:shiro.ini", u1.getUsername(), password );
         Assert.assertTrue(subject().hasRole("admin"));
     }
 
-    @Test
+//    @Test
     public void testNoRole() {
         login("classpath:shiro.ini", u2.getUsername(), password);
         Assert.assertFalse(subject().hasRole("admin"));
     }
 
-    @Test
+//    @Test
     public void testHasPermission() {
         login("classpath:shiro.ini", u1.getUsername(), password);
         Assert.assertTrue(subject().isPermittedAll("user:create", "menu:create"));
     }
 
-    @Test
+//    @Test
     public void testNoPermission() {
         login("classpath:shiro.ini", u2.getUsername(), password);
         Assert.assertFalse(subject().isPermitted("user:create"));
