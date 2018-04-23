@@ -13,6 +13,8 @@ import org.apache.shiro.authz.permission.RolePermissionResolver;
 import org.apache.shiro.mgt.DefaultSecurityManager;
 import org.apache.shiro.realm.Realm;
 import org.apache.shiro.subject.Subject;
+import org.apache.shiro.util.ThreadContext;
+import org.junit.After;
 import org.junit.Test;
 
 public class Main {
@@ -46,15 +48,15 @@ public class Main {
 //		为安全管理器指定授权器
 		securityManager.setAuthorizer(authorizer);
 //		为安全管理器设置安全数据检验实体
-		securityManager.setRealms(Arrays.asList(myrealm,myAuthorizingRealm));
+		securityManager.setRealms(Arrays.asList(myAuthorizingRealm,myrealm));
 		
 		SecurityUtils.setSecurityManager(securityManager);
 		
 		Subject subject = SecurityUtils.getSubject();
 		
 		UsernamePasswordToken token  = new UsernamePasswordToken();
-		token.setUsername("");
-		token.setPassword("".toCharArray());
+		token.setUsername("guest");
+		token.setPassword("guest".toCharArray());
 		
 		try {
 			subject.login(token);
@@ -65,12 +67,19 @@ public class Main {
 			e.printStackTrace();
 		}
 		
-		if(subject.hasRole("")){
-			System.out.println("has role");
+		if(subject.hasRole("admin")){
+			System.out.println("has role admin");
 		}
-		if(subject.isPermitted("")){
-			System.out.println(subject.getPrincipal() +" is permitted  ");
+		if(subject.isPermitted("image:delete")){
+			System.out.println(subject.getPrincipal() +" is permitted  image:delete");
+		}
+		if(subject.isPermitted("image:insert")){
+			System.out.println(subject.getPrincipal() +" is permitted  image:insert");
 		}
 		
+	}
+	@After
+	public void windUp(){
+		ThreadContext.unbindSubject();
 	}
 }
