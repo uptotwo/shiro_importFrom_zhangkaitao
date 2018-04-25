@@ -46,7 +46,8 @@ public class OnlineSessionFilter extends AccessControlFilter {
     @Override
     protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) throws Exception {
         Subject subject = getSubject(request, response);
-        if (subject == null || subject.getSession(false) == null) {
+        if (subject == null || subject.getSession(false) == null) {//subject.getSession(false)获取会话，如果当前没有创建session则返回null，
+        	//subject.getSession(true)或者subject.getSession()获取会话，如果没有创建Session对象则会创建一个;
             return true;
         }
         Session session = sessionDAO.readSession(subject.getSession().getId());
