@@ -15,7 +15,13 @@ public class AnnotationController {
 
     @RequestMapping("/hello1")
     public String hello1() {
-        SecurityUtils.getSubject().checkRole("admin");
+    	try {
+    		 SecurityUtils.getSubject().checkRole("admin");
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+       System.out.println("sdf");
         return "success";
     }
 

@@ -1,13 +1,17 @@
 package com.mine.chapter12.realm;
 
+import javax.annotation.Resource;
+
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
+import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.stereotype.Component;
 
+import com.mine.chapter12.credentials.RetryLimitHashedCredentialsMatcher;
 import com.mine.chapter12.entity.User;
 import com.mine.chapter12.service.UserService;
 
@@ -16,14 +20,10 @@ import com.mine.chapter12.service.UserService;
  * <p>Date: 14-1-28
  * <p>Version: 1.0
  */
-@Component("userRealm")
 public class UserRealm extends AuthorizingRealm {
-
+	@Resource
     private UserService userService;
-
-    public void setUserService(UserService userService) {
-        this.userService = userService;
-    }
+ 
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {

@@ -35,13 +35,8 @@
         <property name="password" value = "123456"/>
     </bean>
     
-     <!-- Base DAO -->
-     <!-- 如果abstract属性设为true，则spring不会为该类创建对象 -->
-    <bean id="baseDao" abstract="true">
-        <property name="dataSource" ref="dataSource"/>
-    </bean>
     
-    <!-- 缓存管理器 -->
+    <!-- 缓存管理器  使用Ehcache实现-->
     <bean 
         id = "cacheManager" 
         class = "org.apache.shiro.cache.ehcache.EhCacheManager"
@@ -53,16 +48,25 @@
     </bean>
     
      <!-- 凭证匹配器 -->
-   <!--  <bean id="credentialsMatcher" class="com.mine.chapter12.credentials.RetryLimitHashedCredentialsMatcher">
+    <bean id="credentialsMatcher" class= "com.mine.chapter12.credentials.RetryLimitHashedCredentialsMatcher">
         <constructor-arg ref="cacheManager"/>
         <property name="hashAlgorithmName" value="md5"/>
         <property name="hashIterations" value="2"/>
         <property name="storedCredentialsHexEncoded" value="true"/>
-    </bean> -->
+    </bean>
  
-   <!-- 凭证匹配器 -->
    <!-- Realm实现 -->
+	<bean id="userRealm" class="com.mine.chapter12.realm.UserRealm">
+    <!--     <property name="userService" ref="userService"/> -->
+        <property name="credentialsMatcher" ref="credentialsMatcher"/>
+        <property name="cachingEnabled" value="true"/>
+        <property name="authenticationCachingEnabled" value="true"/>
+        <property name="authenticationCacheName" value="authenticationCache"/>
+        <property name="authorizationCachingEnabled" value="true"/>
+        <property name="authorizationCacheName" value="authorizationCache"/>
+    </bean>   
    
+	
    <!-- 会话ID生成器 -->
    <bean
        id = "sessionIdGenerator" 
@@ -119,7 +123,7 @@
    <bean id = "securityManager"
        	 class = "org.apache.shiro.web.mgt.DefaultWebSecurityManager"
        >
-      <property name="realm" ref = "userRealm"/> <!-- ..................................................... -->
+      <property name="realm" ref = "userRealm"/> 
       <property name="sessionManager" ref = "sessionManager"/>
       <property name="cacheManager" ref = "cacheManager"/>
    </bean>
@@ -142,7 +146,7 @@
        >
        <property name="usernameParam" value="username"/>
        <property name="passwordParam" value = "password"/>
-       <property name="loginUrl" value = "/login.jsp"/>
+   <!--     <property name="loginUrl" value = "/login.jsp"/> -->
    </bean>
    
    <!-- shiro的web过滤器 -->
@@ -151,7 +155,7 @@
        class = "org.apache.shiro.spring.web.ShiroFilterFactoryBean"
        >
       <property name="securityManager" ref = "securityManager"/>
-      <property name="loginUrl" value ="/login.jsp"/>
+     <!--  <property name="loginUrl" value ="/login.jsp"/> -->
       <property name="unauthorizedUrl" value = "/unauthorized.jsp"/>
       <property name="filters">
           <util:map>
@@ -162,18 +166,21 @@
           <value>
               /index.jsp = anon
               /unauthorized.jsp = anon
-              /login.jsp = authc
+      
               /logout = logout
               /** = user
           </value>
+         
       </property>
    </bean>
-   
+    <!--      /login.jsp = authc -->
    <!-- shiro生命周期处理 -->
    <bean
        id = "lifecycleBeanPostProcessor"
        class = "org.apache.shiro.spring.LifecycleBeanPostProcessor"
        />
+   <!-- spring中注册该类用于创建一个通过Name获取实例的工具类 -->
+   <bean id="springBeanPool" class="com.mine.chapter12.util.SpringBeanPool"/>
 </beans>
 
 

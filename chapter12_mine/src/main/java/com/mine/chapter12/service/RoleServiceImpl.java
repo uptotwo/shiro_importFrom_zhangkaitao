@@ -1,5 +1,6 @@
 package com.mine.chapter12.service;
 
+import javax.annotation.Resource;
 import javax.xml.ws.WebServiceClient;
 
 import org.springframework.stereotype.Service;
@@ -14,7 +15,7 @@ import com.mine.chapter12.entity.Role;
  */
 @Service("roleService")
 public class RoleServiceImpl implements RoleService {
-
+@Resource
     private RoleDao roleDao;
 
     public RoleDao getRoleDao() {

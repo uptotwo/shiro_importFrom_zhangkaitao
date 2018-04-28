@@ -1,5 +1,7 @@
 package com.mine.chapter12.service;
 
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Service;
 
 import com.mine.chapter12.dao.PermissionDao;
@@ -13,6 +15,7 @@ import com.mine.chapter12.entity.Permission;
 @Service("permissionService")
 public class PermissionServiceImpl implements PermissionService {
 
+	@Resource
     private PermissionDao permissionDao;
 
     public void setPermissionDao(PermissionDao permissionDao) {

@@ -3,6 +3,8 @@ package com.mine.chapter12.service;
 
 import java.util.Set;
 
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Service;
 
 import com.mine.chapter12.dao.UserDao;
@@ -15,14 +17,15 @@ import com.mine.chapter12.entity.User;
  */
 @Service("userService")
 public class UserServiceImpl implements UserService {
-
+@Resource
     private UserDao userDao;
-
+@Resource
+private PasswordHelper passwordHelper;
     public void setUserDao(UserDao userDao) {
         this.userDao = userDao;
     }
-
-    private PasswordHelper passwordHelper;
+    
+   
 
     public void setPasswordHelper(PasswordHelper passwordHelper) {
         this.passwordHelper = passwordHelper;
