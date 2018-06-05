@@ -6,6 +6,12 @@
      http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
      version="3.0"
      metadata-complete="false">
+     
+     <welcome-file-list>
+         <welcome-file>
+             /index.jsp
+         </welcome-file>
+     </welcome-file-list>
      <!-- spring 配置文件开始 -->
      <context-param>
          <param-name>contextConfigLocation</param-name>
@@ -22,11 +28,13 @@
      
      
      <!-- shiro 安全过滤器 开始 -->
+     <!-- DelegatingFilterProxy会自动到spring容器中寻找名字为shiroFilter的bean并把filter请求交给它处理 -->
       <filter>
           <filter-name>shiroFilter</filter-name>
           <filter-class>
               org.springframework.web.filter.DelegatingFilterProxy
     	  </filter-class>
+    	<!--   异步处理支持 -->
     	  <async-supported>true</async-supported>
     	  <init-param>
     	      <param-name>targetFilterLifecycle</param-name>
@@ -37,7 +45,7 @@
           <filter-name>shiroFilter</filter-name>
           <url-pattern>/*</url-pattern>
       </filter-mapping>
-      <!-- shiro 安全过滤器 开始 -->
+      <!-- shiro 安全过滤器 结束 -->
       
       <!-- spring mvc begin-->
       <servlet>
@@ -61,6 +69,12 @@
           <url-pattern>/</url-pattern>
       </servlet-mapping>
      <!-- spring mvc end -->
+     
+     <welcome-file-list>
+         <welcome-file>
+             /index.jsp
+         </welcome-file>
+     </welcome-file-list>
 </web-app>
 
 

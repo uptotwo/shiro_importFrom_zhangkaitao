@@ -152,7 +152,7 @@
   
   
   <build>
-    <finalName>chapter12_mine</finalName>
+    <finalName>cp12</finalName>
     <plugins>
     	<plugin>
     		<groupId>org.apache.tomcat.maven</groupId>

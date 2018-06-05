@@ -20,11 +20,12 @@
         <context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
     </context:component-scan>
     
+     <!-- Shiro Spring AOP权限注解 -->
     <aop:config proxy-target-class="true"></aop:config>
-    
     <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
         <property name="securityManager" ref="securityManager"/>
     </bean>
+    
     
     <mvc:annotation-driven/>
     <mvc:view-controller path="/" view-name="index"/>

@@ -91,7 +91,7 @@
            value = "shiro-activeSessionCache"
            />
        <property name="sessionIdGenerator" 
-           ref ="sessionIdGenerator"/>
+           ref ="sessionIdGenerator"/> 
    </bean>
    
    <!-- 会话验证调度器 -->
@@ -146,7 +146,7 @@
        >
        <property name="usernameParam" value="username"/>
        <property name="passwordParam" value = "password"/>
-   <!--     <property name="loginUrl" value = "/login.jsp"/> -->
+   <!--     <property name="loginUrl" value = "/login2.jsp"/> -->
    </bean>
    
    <!-- shiro的web过滤器 -->
@@ -155,23 +155,23 @@
        class = "org.apache.shiro.spring.web.ShiroFilterFactoryBean"
        >
       <property name="securityManager" ref = "securityManager"/>
-     <!--  <property name="loginUrl" value ="/login.jsp"/> -->
+      <property name="loginUrl" value ="/login.jsp"/> 
       <property name="unauthorizedUrl" value = "/unauthorized.jsp"/>
-      <property name="filters">
+    <!--   <property name="filters">
           <util:map>
               <entry key = "authc" value-ref="formAuthenticationFilter"/>
           </util:map>
-      </property> 
-      <property name="filterChainDefinitions">
+      </property>  -->
+     <!--  <property name="filterChainDefinitions">
           <value>
               /index.jsp = anon
               /unauthorized.jsp = anon
-      
+      		  /login.jsp = authc
               /logout = logout
               /** = user
-          </value>
+          </value>6
          
-      </property>
+      </property> -->
    </bean>
     <!--      /login.jsp = authc -->
    <!-- shiro生命周期处理 -->
